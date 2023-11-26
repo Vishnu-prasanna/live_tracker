@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'/>
+        <title>my map - mapbox</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+        }
+  
+        #map {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+        }
+        .marker {
+    background-image: url('20201211_121129.jpg');
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    
+  }
+  .mapboxgl-popup {
+    max-width: 200px;
+  }
+  
+  .mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+      </style>
+      <script>
+  
+        function getdetails()
+        {
+          var xmlhttp=new XMLHttpRequest();
+          xmlhttp.open("GET","/json1.json",true);
+          xmlhttp.send();
+          alert();
+            var geoj= xmlhttp.responseText;
+            alert(geoj);
+
+
+
+
+         
+        /*  xmlhttp.send();
+          if(xmlhttp.readystate == 4 && xmlhttp.status ==200)
+          {
+            alert();
+            var geojson1= xmlhttp.responseText;
+            alert(geojson1);
+          }*/
+        }
+      
+      </script>
+    
+    </head>
+    <body onload='getdetails()'>
+        <div id='map'></div>
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoidmlzaG51LS1wcmFzYW5uYSIsImEiOiJja3Y0eW5uNmIwZ2xuMnJva3F3cDZuMmphIn0.j3LE0QgpGElKAu87Uuhlig';
+            
+            const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/light-v10',
+  center: [80, 13],
+  zoom: 8
+});
+   const geojson1 ='{"geometry":{"type":"Point","coordinates":[80.2468111,13.1462851]},"properties":{"title":"Mapbox","description":"chennai"}}'
+
+    var geojson=JSON.parse(geojson1);
+    alert(typeof(geojson));
+
+    const el = document.createElement('div');
+  el.className = 'marker';
+  
+     
+    new mapboxgl.Marker(el).setLngLat(geojson.geometry.coordinates).addTo(map);
+</script>
+        
+      
+    </body>
+</html>
